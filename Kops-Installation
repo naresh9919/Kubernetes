@@ -31,25 +31,18 @@ a) First, become root 'sudo su –'
 
 b) To  download the awscli zip file.
 
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+# curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
-c) To unzip the awscli file.
-
-unzip awscliv2.zip
-
-d) To install the awscli.
-
-sudo ./aws/install
-
-aws --version
+# unzip awscliv2.zip
+# sudo ./aws/install
+# aws --version
  
 Step 3: Install Kubectl
 
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+# curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
-chmod +x ./kubectl
-
-sudo mv ./kubectl /usr/local/bin/kubectl
+#chmod +x ./kubectl
+#sudo mv ./kubectl /usr/local/bin/kubectl
 
 Step 4: Create an IAM user with Route53, EC2, IAM and S3 full access
 We can also create IAM role in place of IAM user. EC2 instance will require to access above services while installing Kubernetes and setting up the cluster.
@@ -58,10 +51,11 @@ We can also create IAM role in place of IAM user. EC2 instance will require to a
 •	Click on "Add users" and give user a name. In the next step give user permission and also create a tag as shown below.
 •	Once done click on "Create user"
 •	Download the .csv file that contains Access key and Secret Key.
+
 Step 5: Attach IAM user to AWS server
 Now that we have created the IAM user with all needed permission, we will attach this user to the EC2 instance by following commands.
 
---> aws configure
+# aws configure
 
 AWS Access Key ID [****************O76J]:
 
@@ -73,14 +67,14 @@ Default output format [None]: json
 
 Step 6: Install Kops
 
-curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+# curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
 
-chmod +x kops-linux-amd64
-
-sudo mv kops-linux-amd64 /usr/local/bin/kops
+# chmod +x kops-linux-amd64
+# sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 Step 7: Create a Route53 private hosted zone
 Under services in AWS console go to 
+
 Route53 -> DNS Management 
 -> Create hosted zone. 
 Give it a name, select VPC and type as shown below. Once done click on "Create hosted zone".
@@ -89,14 +83,13 @@ Then provide Region and VPC ID as shown below.
 Step 8: Create S3 Bucket
 All cluster information will get stored in the created bucket. Use below command to create the bucket.
 
--->aws s3 mb s3://k8s.bucket.cluster
-
---> export KOPS_STATE_STORE=s3://k8s.bucket.cluster
+# aws s3 mb s3://k8s.bucket.cluster
+#export KOPS_STATE_STORE=s3://k8s.bucket.cluster
 
 Step 9: Create SSH Keys
 Generate the SSH Key pair to enable key based authentication for our Kubernetes cluster.
 
---> ssh-keygen
+# ssh-keygen
 
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa):
@@ -122,11 +115,11 @@ The key's randomart image is:
 Step 10: Create Kubernetes Cluster Definitions on S3 bucket
 Now you can create Kubernetes Cluster definitions on S3 bucket using below kops create cluster command.
 
---> kops create cluster --cloud=aws --zones=ap-south-1 --name=k8s.bucket.cluster --dns-zone=private-zone --dns private --state s3://k8s.bucket.cluster
+# kops create cluster --cloud=aws --zones=ap-south-1 --name=k8s.bucket.cluster --dns-zone=private-zone --dns private --state s3://k8s.bucket.cluster
  
 Step 11: Create Cluster
 Finally to create the cluster use below kops update cluster command.
 
--->kops update cluster k8s.bucket.cluster --state s3://k8s.bucket.cluster –yes
+# kops update cluster k8s.bucket.cluster --state s3://k8s.bucket.cluster –yes
 
 Once above command gets executed, you will see master and worker nodes created. Verify them under EC2 service as shown below.
