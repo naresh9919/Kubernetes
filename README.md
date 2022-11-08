@@ -42,8 +42,6 @@ d) To install the awscli.
 sudo ./aws/install
 
 aws --version
-
-aws-cli/2.2.26 Python/3.8.8 Linux/5.4.0-1045-aws exe/x86_64.ubuntu.20 prompt/off
  
 Step 3: Install Kubectl
 
