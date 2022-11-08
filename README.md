@@ -80,7 +80,10 @@ chmod +x kops-linux-amd64
 sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 Step 7: Create a Route53 private hosted zone
-Under services in AWS console go to Route53 -> DNS Management -> Create hosted zone. Give it a name, select VPC and type as shown below. Once done click on "Create hosted zone".
+Under services in AWS console go to 
+Route53 -> DNS Management 
+-> Create hosted zone. 
+Give it a name, select VPC and type as shown below. Once done click on "Create hosted zone".
 Then provide Region and VPC ID as shown below.
 
 Step 8: Create S3 Bucket
@@ -88,19 +91,13 @@ All cluster information will get stored in the created bucket. Use below command
 
 -->aws s3 mb s3://k8s.bucket.cluster
 
-make_bucket: k8s.bucket.cluster
-
-Where,
-mb -> make bucket
-k8s.bucket.cluster -> name of the bucket
-Once created, go to Amazon S3 service and validate if you can see the bucket created there as shown below.
-
 --> export KOPS_STATE_STORE=s3://k8s.bucket.cluster
 
 Step 9: Create SSH Keys
 Generate the SSH Key pair to enable key based authentication for our Kubernetes cluster.
 
 --> ssh-keygen
+
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa):
 Enter passphrase (empty for no passphrase):
@@ -125,7 +122,7 @@ The key's randomart image is:
 Step 10: Create Kubernetes Cluster Definitions on S3 bucket
 Now you can create Kubernetes Cluster definitions on S3 bucket using below kops create cluster command.
 
---> kops create cluster --cloud=aws --zones=us-east-2b --name=k8s.bucket.cluster --dns-zone=private-zone --dns private --state s3://k8s.bucket.cluster
+--> kops create cluster --cloud=aws --zones=ap-south-1 --name=k8s.bucket.cluster --dns-zone=private-zone --dns private --state s3://k8s.bucket.cluster
  
 Step 11: Create Cluster
 Finally to create the cluster use below kops update cluster command.
