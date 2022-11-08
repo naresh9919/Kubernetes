@@ -27,7 +27,7 @@ We need to install and configure AWS CI on the instance to execute AWS commands.
 
 a) First, become root 'sudo su –'
 
-sudo yum update
+# sudo yum update
 
 b) To  download the awscli zip file.
 
