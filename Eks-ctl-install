@@ -12,12 +12,12 @@ You can follow same procedure in the official  AWS document [Getting started wit
    c. Move kubectl onto /usr/local/bin   
    d. Test that your kubectl installation was successful    
    
-   curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
-   chmod +x ./kubectl
-   mv ./kubectl /usr/local/bin 
-   kubectl version --short --client
-   ls -l /usr/local/bin
-   kubectl version
+ #  curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+ #  chmod +x ./kubectl
+ #  mv ./kubectl /usr/local/bin 
+ #  kubectl version --short --client
+ #  ls -l /usr/local/bin
+ #  kubectl version
    
 
 2. Setup eksctl   
@@ -26,11 +26,11 @@ You can follow same procedure in the official  AWS document [Getting started wit
    c. Test that your eksclt installation was successful   
    
    
-   curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
-   cd /tmp
-   sudo mv /tmp/eksctl /usr/local/bin
-   eksctl version
-   ls -l /usr/local/bin
+ #  curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+ #  cd /tmp
+ #  sudo mv /tmp/eksctl /usr/local/bin
+ #  eksctl version
+ #  ls -l /usr/local/bin
    
   
 3. Create an IAM Role and attache it to EC2 instance
@@ -50,7 +50,7 @@ You can follow same procedure in the official  AWS document [Getting started wit
 
 4. Create your cluster and nodes   
   
-  eksctl create cluster --name cluster-name  \
+# eksctl create cluster --name cluster-name  \
   --region region-name \
   --node-type instance-type \
   --nodes-min 2 \
@@ -59,19 +59,19 @@ You can follow same procedure in the official  AWS document [Getting started wit
    
    example:
    
-   eksctl create cluster --name gelaxy-cluster \
+ # eksctl create cluster --name gelaxy-cluster \
    --region ap-south-1 \
    --node-type t2.small \
     ```
 
 5. To delete the EKS clsuter 
    
-   eksctl delete cluster gelaxy-cluster --region ap-south-1
+ #  eksctl delete cluster gelaxy-cluster --region ap-south-1
    
    
 6. Validate your cluster using by creating by checking nodes and by creating a pod 
    
-   kubectl get nodes
-   kubectl run pod tomcat --image=tomcat 
-   kubectl get pods
+#   kubectl get nodes
+#   kubectl run pod tomcat --image=tomcat 
+#   kubectl get pods
    
