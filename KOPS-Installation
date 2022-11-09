@@ -1,0 +1,66 @@
+Setup Kubernetes Cluster on EC2 Instance Using Kops
+
+First, become root 'sudo su –'
+sudo yum update
+
+# Step 1:  Install AWSCLI
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+exit
+aws --version
+
+# Step 2: Install Kubectl
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s 
+
+https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+# Step 3: Install Kops
+
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+
+chmod +x kops-linux-amd64
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+
+# Step 4: Create S3 Bucket
+
+aws s3 ls
+
+aws s3api create-bucket --bucket my-state-store --region=ap-south-1 --create-bucket-configuration 
+
+locationconstraint="ap-south-1"
+export KOPS_STATE_STORE=s3://k8s.bucket.cluster
+
+kops get cluster
+
+# Step 5: create route 53 host ans domain
+# Step 6: create cluster
+
+kops create cluster --name=k8s-cluster.example.com --state=s3://my-state-store --zones=ap-south-1a 
+
+--master-size t2.micro --node-size t2.micro --kubernetes-version 1.19.8
+
+kops get cluster
+
+# finaly configure your cluster with: copy and paste
+
+kops validate cluster
+create deployment trietee --image=nginx
+kubectl get pods
+kubectl get deployment
+kubectl port-forward (podname)8080:80
+
+# forwrdings from 127.0.01:8080
+copy and paste on google crome
+
+# kops delete cluster --name (clustername) --yes
+# kops get cluster
+
+
+
+
