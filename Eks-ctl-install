@@ -16,7 +16,7 @@ You can follow same procedure in the official  AWS document [Getting started wit
  #  chmod +x ./kubectl
  #  mv ./kubectl /usr/local/bin/kubectl 
  #  kubectl version --short --client
- #  ls -l /usr/local/bin
+ #  ls -l /usr/local/bin/kubectl
  #  kubectl version
    
 
@@ -30,7 +30,7 @@ You can follow same procedure in the official  AWS document [Getting started wit
  #  cd /tmp
  #  sudo mv /tmp/eksctl /usr/local/bin/eksctl
  #  eksctl version
- #  ls -l /usr/local/bin
+ #  ls -l /usr/local/bin/eksctl
    
   
 3. Create an IAM Role and attache it to EC2 instance
