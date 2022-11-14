@@ -9,20 +9,38 @@ minikube start
 Internet connection
 Container or virtual machine manager, such as: Docker, Hyperkit, Hyper-V, KVM, Parallels, Podman, VirtualBox, or VMware Fusion/Workstation
 
+# intsall docker
+
+
+yum install docker -y
+service docker start
+
+# install kubectl
+
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.19.6/2021-01-05/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+kubectl version --short --client
+ls -l /usr/local/bin/kubectl
+
 
 # Installation :-
 
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
-minikube start
+minikube start --force
+minikube status
+kubectl cluster-info
+kubectl get nodes
+kubectl get pods
 
 
-# Interact with your cluster :-
+{  # Interact with your cluster :-
 
 kubectl get po -A
 minikube kubectl -- get po -A
 alias kubectl="minikube kubectl --"
-minikube dashboard
+minikube dashboard   }
 
 
 Deploy applications :-
