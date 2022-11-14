@@ -50,6 +50,9 @@ kubectl create deployment hello-minikube --image=docker.io/nginx:1.23
 kubectl expose deployment hello-minikube --type=NodePort --port=80
 kubectl get services hello-minikube
 minikube service hello-minikube
+
+curl http://192.168.49.2:32259    (it will show the ngenix)
+
 kubectl port-forward service/hello-minikube 7080:80
 
 kubectl get nodes
