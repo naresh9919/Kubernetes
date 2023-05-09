@@ -64,6 +64,9 @@ You can follow same procedure in the official  AWS document [Getting started wit
    --node-type t2.small \
     ```
    eksctl create cluster --name my-cluster --region ap-south-1 --fargate
+   kubectl get nodes -o wide
+   kubectl get pods -A -o wide
+   eksctl delete cluster --name my-cluster --region ap-south-1
 
 
 5. To delete the EKS clsuter 
