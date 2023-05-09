@@ -63,6 +63,8 @@ You can follow same procedure in the official  AWS document [Getting started wit
    --region ap-south-1 \
    --node-type t2.small \
     ```
+   eksctl create cluster --name my-cluster --region ap-south-1 --fargate
+
 
 5. To delete the EKS clsuter 
    
