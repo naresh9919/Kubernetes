@@ -1,4 +1,25 @@
-=================== EKS-CLUSTER-CREATATION ========================
+                                                         =================== EKS-CLUSTER-CREATATION ========================
+
+
+=================== JAVA INSTALLATION ============================
+sudo apt-get update
+sudo apt install openjdk-11-jre-headless
+
+==================== Install and Setup Jenkins ======================
+
+sudo vi /etc/sudoers
+jenkins ALL=(ALL) NOPASSWD: ALL
+
+
+========================================== MAVEN INSTALLATION =============================
+
+========================================== DOCKER INSTALLATION ============================
+sudo usermod -aG docker jenkins
+sudo chmod 666 /var/run/docker.sock
+
+===========================================
+
+sudo su - jenkins
 
 
 ==================Install or update the AWS CLI ===================
@@ -40,11 +61,17 @@ Default region name [None]: ap-south-1
 Default output format [None]: json
 
 ====================== Cluster creation ==================================
-eksctl create cluster --name demo-eks-1 --region ap-south-1 --nodegroup-name my-nodes --node-type t3.small --managed --nodes 2
+eksctl create cluster --name naresh-test-cluster --region ap-south-1 --nodegroup-name my-nodes --node-type t3.small --managed --nodes 2
+eksctl get cluster --name naresh-test-cluster --region ap-south-1
+aws eks update-kubeconfig --name naresh-test-cluster --region ap-south-1
 
-aws eks update-kubeconfig --name demo-eks-1 --region ap-south-1
 Added new context arn:aws:eks:ap-south-1:226588068670:cluster/demo-eks to (/root/.kube/config)--> copy the path
 
-cat /root/.kube/config 
+cat /root/.kube/config (crete credencials with this config file)
 
-eksctl delete cluster --name demo-eks-1 --region ap-south-1
+kubectl get nodes
+kubectl get deployments
+kubectl get service
+
+
+eksctl delete cluster --name naresh-test-cluster --region ap-south-1
